@@ -1,0 +1,93 @@
+@model FLive.Web.Models.TrainingCategory
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="Edit" enctype="multipart/form-data">
+    <div class="form-horizontal">
+        <h4>TrainingCategory</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="Description" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Description" class="form-control"/>
+                <span asp-validation-for="Description" class="text-danger" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DescriptionColor" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="DescriptionColor" class="form-control"/>
+                <span asp-validation-for="DescriptionColor" class="text-danger" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ImageUrl" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger" />
+            </div>
+        </div>
+            <div class="form-group">
+                <label asp-for="Name" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger" />
+                </div>
+            </div>
+        <div class="form-group">
+            <label asp-for="NameColor" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="NameColor" class="form-control"/>
+                <span asp-validation-for="NameColor" class="text-danger" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="SponsorLogo" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="SponsorLogo" class="form-control" />
+                <span asp-validation-for="SponsorLogo" class="text-danger" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="SponsorText" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="SponsorText" class="form-control" />
+                <span asp-validation-for="SponsorText" class="text-danger" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <form asp-action="upload"
+                  asp-controller="api/file"
+                  method="post"
+                  enctype="multipart/form-data">
+                <input type="file" name="files" />
+              
+            </form>
+        </div>
+
+        <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,51 @@
+﻿@model IList<FLive.Web.MediaService.Models.flive.LiveWorkout>
+@{
+    ViewBag.Title = "SearchFreeWorkoutList";
+    Layout = null;
+}
+
+<div class="ui link cards">
+
+    @foreach (var item in Model)
+            {
+        <div class="card" id="div_workout_@item.Id">
+            <div class="image">
+                <img src="@item.PreviewImagelUrl">
+            </div>
+            <div class="content">
+                <div class="header">@item.TrainingCategory <span class="meta" style="font-size:13px;">(@item.DurationMins mins)</span></div>
+                <div class="meta">
+                    <a>By @item.TrainerUsername</a>
+                </div>
+                <div class="description">
+                    @item.Title
+                </div>
+            </div>
+            <div class="extra content">
+                <span class="right floated">
+                    <a href="#" onclick="FreeWorkoutManagement.RemoveFromFreeWorkout(@item.Id);" style=""><i class="fa fa-minus-circle"></i> Remove From Free</a>
+                </span>
+                <span>
+                    @if (item.IsActive)
+                    {
+                        <div style="float:unset" class="label label-success profilelistcard-status">&nbsp;</div> <span>Online</span>
+                    }
+                    else
+                    {
+                        <div style="float:unset" class="label label-danger profilelistcard-status">&nbsp;</div> <span>Offline</span>
+                    }
+                </span>
+
+            </div>
+        </div>
+    }
+
+    @if (Model == null || Model.Count == 0)
+            {
+        <div style="text-align: center;font-size: 18px;width: 100%;padding-top: 100px;color: #aaa;">
+            @Html.Raw("No free workouts found")
+        </div>
+    }
+
+</div>
+

@@ -1,0 +1,98 @@
+﻿@using Microsoft.WindowsAzure.MediaServices.Client
+@using FLive.Media.Common
+@model List<FLive.Media.Common.Models.Asset>
+@{
+    ViewBag.Title = "Assets";
+}
+@section head
+{
+    <link href="@Url.Content("~/Content/fileuploader.css")" rel="stylesheet" type="text/css" />
+}
+@section featured {
+
+    <h1 class="ui header">@ViewBag.Title</h1>
+    <div class="ui divider"></div>
+
+    <div class="ui icon info message">
+        <i class="film icon"></i>
+        <div class="content">
+            <div class="header">
+                Upload Your Video Assets Here
+            </div>
+            <p>Please do not close the browser window until the upload progress completes.</p>
+        </div>
+    </div>
+
+    <div class="ui divider hidden"></div>
+}
+@section scripts
+{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/fileuploader.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var uploader = new qq.FileUploader({
+                // pass the dom node (ex. $(selector)[0] for jQuery users)  -- change this
+                element: $('#mediasource')[0],
+                // path to server-side upload script
+                action: '/Assets/CreateMediaAsset/',
+                uploadButtonText: 'Create Media Asset'
+            });
+
+        });
+    </script>
+}
+
+
+<table class="ui compact celled table">
+    <thead>
+        <tr>
+            <th>File Name</th>
+            <th>Date</th>
+            <th>State</th>
+            <th>Dash</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var asset in Model)
+        {
+            <tr>
+                <td>
+                    @asset.MediaAsset.Name
+                </td>
+                <td>@asset.MediaAsset.Created</td>
+                <td>@asset.MediaAsset.State</td>
+                <td>@asset.MediaAsset.GetMpegDashUri()</td>
+                <td>@Html.ActionLink("DELETE", "DeleteAsset", new { assetId = @asset.MediaAsset.Id })</td>
+                @*<td>
+                    @Html.ActionLink("[details]", "Details", new { assetId = @asset.MediaAsset.Id })
+                    @Html.ActionLink("[streaming url]", "GetStreamingUrl", new { assetId = @asset.MediaAsset.Id })
+                    @Html.ActionLink("[HLS URL]", "GetHlsStreamingUrl", new { assetId = @asset.MediaAsset.Id })
+                    @Html.ActionLink("[streaming CDN]", "GetCDNStreamingUrl", new { assetId = @asset.MediaAsset.Id })
+                    @Html.ActionLink("[progressive mp4 url]", "GetMp4StreamingUrl", new { assetId = @asset.MediaAsset.Id })
+                    @Html.ActionLink("[Smooth enc.]", "EncodeAndConvert", new { assetId = @asset.MediaAsset.Id })
+                    @Html.ActionLink("[Smooth Pack.]", "Mp4ToSmooth", new { assetId = @asset.MediaAsset.Id })
+                    @Html.ActionLink("[HLS enc.]", "ConvertToHls", new { assetId = @asset.MediaAsset.Id })
+                    @Html.ActionLink("[MP4 enc.]", "ConvertToMp4", new { assetId = @asset.MediaAsset.Id })
+                    @Html.ActionLink("[Multi bitrate MP4 enc.]", "ConvertToMultiBitrateMp4", new { assetId = @asset.MediaAsset.Id })
+                    @Html.ActionLink("[PlayReady ENC.]", "ConvertToPlayReady", new { assetId = @asset.MediaAsset.Id })
+                    @Html.ActionLink("[Gen. Thumbnails]", "CreateThumbnails", new { assetId = @asset.MediaAsset.Id })
+                    @Html.ActionLink("[SAS URL]", "GetSasUrl", new { assetId = @asset.MediaAsset.Id });
+                    @Html.ActionLink("[~ DELETE ~]", "DeleteAsset", new { assetId = @asset.MediaAsset.Id })
+
+                </td>*@
+            </tr>
+        }
+
+        
+    </tbody>
+    <tfoot class="full-width">
+        <tr>
+            <th colspan="5">
+               
+            </th>
+        </tr>
+    </tfoot>
+</table>
+
+<div id="errorMessage1"></div>

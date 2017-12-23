@@ -1,0 +1,66 @@
+﻿@model FLive.Web.MediaService.Models.MediaAsset
+@{
+    ViewBag.Title = "Media Asset Details";
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title</h1>
+            </hgroup>
+        </div>
+    </section>
+}
+<h2>Asset Details for @Model.OriginalFileName</h2>
+
+
+<div id="asset_progress_info">
+    <table class="ui definition table">
+
+        <tbody>
+            <tr>
+                <td>Status</td>
+                <td colspan="2" id="td_status">@Model.Status</td>
+            </tr>
+            <tr>
+                <td>Mesage</td>
+                <td colspan="2" id="td_message">@Model.Mesage</td>
+            </tr>
+            <tr>
+                <td>File upload</td>
+                <td id="td_uploadstart">@Model.DateUploadStarted</td>
+                <td id="td_uploadend">@Model.DateUploadCompleted</td>
+            </tr>
+            <tr>
+                <td>Creating Asset</td>
+                <td id="td_creatingassetstart">@Model.DateSyncToServiceStarted</td>
+                <td id="td_creatingassetend">@Model.DateSyncToServiceCompleted</td>
+            </tr>
+            <tr>
+                <td>Encoding</td>
+                <td id="td_encodingstart">@Model.DateEncodingStarted</td>
+                <td id="td_encodingend">@Model.DateEncodingCompleted</td>
+            </tr>
+            <tr>
+                <td>Publishing</td>
+                <td id="td_publishingstart">@Model.DatePublished</td>
+                <td id="td_publishingend">@Model.DateExpire</td>
+            </tr>
+
+            <tr>
+                <td>HSL URL</td>
+                <td colspan="2" id="td_hsl">@Model.HSLUrl</td>
+            </tr>
+
+            <tr>
+                <td>Streaming URL</td>
+                <td colspan="2" id="td_straming">@Model.StreamingUrl</td>
+            </tr>
+
+            <tr>
+                <td>Dash URL</td>
+                <td colspan="2" id="td_dash">@Model.DashUrl</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Notifications";
+}
+
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.0.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.0.min.js"></script>
+    <script src="/signalr/hubs"></script>
+</head>
+<body>
+
+    <input id="workoutid" type="text" placeholder="Enter the workout id" />
+
+    <button id="publishPostButton">Subscribe to Notifications</button>
+
+    <ul id="postsList"></ul>
+
+    <script type="text/javascript">
+       
+        function addPost(post) {
+            $("#postsList").append(
+                    '<li><b>' + post.applicationUser.email + '</b><br>' + post.text + '</li><br>'
+                 );
+        }
+
+        var hub = $.connection.workoutNotificationsHub;
+
+
+       
+
+        hub.client.publishPost = addPost;
+
+        $("#publishPostButton").click(function () {
+
+            hub.server.joinGroup($("#workoutid").val());
+        });
+
+
+
+        $.connection.hub.logging = true;
+        $.connection.hub.start();
+    </script>
+</body>
+</html>

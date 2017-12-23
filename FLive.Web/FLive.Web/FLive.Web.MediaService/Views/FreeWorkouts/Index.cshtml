@@ -1,0 +1,89 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section Breadcrumb {
+    <li>
+        Flive Admin
+    </li>
+    <li class="active">
+        Manage Free Videos
+    </li>
+}
+
+<style>
+    .modal {
+        height: unset !important;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12 page-action-container">
+        <div class="row" style="margin:0px; display:">
+            <div class="col-lg-12 page-inner-subheading">
+                <div class="main-search">
+                    <table style="width:100%">
+                        <tr>
+                            <td>
+                                <div class="input-group margin-bottom-sm">
+                                    <span class="input-group-addon search-box-wrap"><i class="fa fa-search fa-fw"></i></span>
+                                    <input type="text" id="TextBox_Main_SearchBox" onkeyup="FreeWorkoutManagement.FindFreeWorkouts();"
+                                           placeholder="What do you want to find ?" class="form-control main-search-box"></input>
+                                </div>
+                            </td>
+                            <td style="width:200px;">
+                                <button style="width:175px; height:45px; float:right" onclick="FreeWorkoutManagement.LoadAddEditForm()" class="ui button search-box-wrap">
+                                    Add Free Videos
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" id="div_searchresults" style="min-height:300px;">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="ui modal" id="div_addnew_freevideo" style="height:fit-content !important;width: 80%; margin-left:-40% !important" >
+    <i class="close icon"></i>
+    <div class="header">
+        Select Free Videos
+    </div>
+    <div class="content ">
+        <div class="input-group margin-bottom-sm">
+            <span class="input-group-addon search-box-wrap"><i class="fa fa-search fa-fw"></i></span>
+            <input type="text" id="TextBox_AddNewFreeVideo_SearchBox" onkeyup="FreeWorkoutManagement.FindAddNewFreeWorkouts();"
+                   placeholder="What do you want to find ?" class="form-control main-search-box"></input>
+        </div>
+        <div class="free-video-list">
+            
+            <div id="AddNew-FreeWorkout-List" style="margin-top:30px;"></div>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui black deny button">
+            Done
+        </div>
+        
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            FreeWorkoutManagement.SearchFreeWorkouts();
+            //TrainerManagement.ResetHeight();
+
+        });
+
+    </script>
+
+}

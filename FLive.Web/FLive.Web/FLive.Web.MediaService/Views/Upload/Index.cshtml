@@ -1,0 +1,225 @@
+﻿@using Microsoft.WindowsAzure.MediaServices.Client
+@using FLive.Media.Common
+@{
+    ViewBag.Title = "File Upload";
+}
+@section head
+{
+    <link href="@Url.Content("~/Content/fileuploader.css")" rel="stylesheet" type="text/css" />
+}
+@section featured {
+
+    <h1 class="ui header">@ViewBag.Title</h1>
+    <div class="ui divider"></div>
+
+    <div class="ui icon info message">
+        <i id="main_uploadmessage_icon" class="film icon"></i>
+        <div class="content">
+            <div class="header" id="main_uploadmessage_title">
+                Upload Your Video Assets Here
+            </div>
+            <p id="main_uploadmessage_subtitle">Please do not close the browser window until the upload progress completes.</p>
+        </div>
+    </div>
+
+    <div class="ui divider hidden"></div>
+}
+@section scripts
+{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/fileuploader.js")"></script>
+    <script type="text/javascript">
+        var uploadId = null;
+        $(document).ready(function () {
+            var uploader = new qq.FileUploader({
+                // pass the dom node (ex. $(selector)[0] for jQuery users)  -- change this
+                element: $('#mediasource')[0],
+                // path to server-side upload script
+                action: '/Upload/CreateMediaAsset/',
+                params: { "WorkoutId": "419", "AccessToken": "d076878e-2c07-4f2b-ae82-dac0e280fac5" },
+                uploadButtonText: 'Create Media Asset',
+                onSubmitCallback: function () {
+                    $('#step_upload').addClass("active");
+                    $('.qq-upload-button').hide();
+                    $('#main_uploadmessage_icon').removeClass('film').addClass('notched circle loading');
+                    $('#main_uploadmessage_title').html('Your media file is Uploading to cloud.');
+                },
+                onCompleteCallback: function (result) {
+                    $('#step_upload').removeClass("active").addClass("completed");
+                    $('#step_create_asset').addClass("active");
+                    uploadId = result.id;
+                    $('#qq-progress-bar').progress({
+                        percent: 0
+                    });
+
+                    $('#qq-progress-bar').hide();
+                    $('#div_transition').show();
+                    
+                    checkStatus();
+                }
+            });
+
+        });
+
+        function checkStatus() {
+            setTimeout(function () {
+
+                $.get('/api/MediaAsset/GetMediaAsset/' + uploadId, function (data) {
+                    console.log(data);
+                    $('#div_transition').hide();
+                    $('#asset_progress_info').show();
+                    $('#qq-progress-bar').progress({
+                        percent: data.CurrentProgress
+                    });
+
+                    var statusStr = data.Status;
+                    if (data.Status != 'Completed') {
+                        statusStr = '<i class="notched circle loading icon"></i> ' + statusStr;
+                    }
+
+                    $('#td_status').html(statusStr);
+                    $('#td_message').html(data.Mesage);
+                    $('#td_uploadstart').html('Start: ' + data.DateUploadStarted);
+                    $('#td_uploadend').html('Complete: ' + data.DateUploadCompleted);
+                    $('#td_creatingassetstart').html('Start: ' + data.DateSyncToServiceStarted);
+                    $('#td_creatingassetend').html('Complete: ' + data.DateSyncToServiceCompleted);
+                    $('#td_encodingstart').html('Start: ' + data.DateEncodingStarted);
+                    $('#td_encodingend').html('Complete: ' + data.DateEncodingCompleted);
+                    $('#td_publishingstart').html('From: ' + data.DatePublished);
+                    $('#td_publishingend').html('To: ' + data.DateExpire);
+
+                    $('#td_hsl').html(data.HSLUrl);
+                    $('#td_straming').html(data.StreamingUrl);
+                    $('#td_dash').html(data.DashUrl);
+
+                    //// Set Complete Tag
+
+                    if (data.IsUploadCompleted) {
+                        $('#step_upload').removeClass("active").addClass("completed");
+                        $('#main_uploadmessage_icon').removeClass('notched circle loading thumbs outline up').addClass('thumbs outline up');
+                        $('#main_uploadmessage_title').html('You can close your browser now.');
+                        $('#main_uploadmessage_subtitle').html('There are few more things to do to get your video ready to play. We will work on the background and notify when its done.');
+                    }
+                    if (data.IsSyncCompleted) {
+                        $('#step_create_asset').removeClass("active").addClass("completed");
+                    }
+                    if (data.IsEncodingCompleted) {
+                        $('#step_encod').removeClass("active").addClass("completed");
+                    }
+                    if (data.Status == 'Completed') {
+                        $('#step_publish').removeClass("active").addClass("completed");
+                        $('#main_uploadmessage_subtitle').html('All done. You can play your video with the folowing Urls :)');
+                    }
+
+                    //// Set Active Tag
+
+                    if (data.Status == 'Scheduling Encoding Job') {
+                        $('#step_encod').addClass("active");
+                    }
+                    if (data.Status == 'Publishing') {
+                        $('#step_publish').addClass("active");
+                    }
+
+                    if (data.Status == 'Publishing' || data.Status == 'Completed') {
+                        $('#qq-progress-bar').hide();
+                    }
+                    else {
+                        $('#qq-progress-bar').show();
+                    }
+                });
+
+                checkStatus();
+            }, 3000);
+        }
+    </script>
+}
+
+<div class="ui steps">
+    <div id="step_upload" class="step">
+        <i class="cloud upload icon"></i>
+        <div class="content">
+            <div class="title">Uploading</div>
+            <div class="description">Uploading your file to cloud</div>
+        </div>
+    </div>
+    <div id="step_create_asset" class=" step">
+        <i class="file video outline icon"></i>
+        <div class="content">
+            <div class="title">Creating Media</div>
+            <div class="description">Creating asset on Medie service</div>
+        </div>
+    </div>
+    <div id="step_encod" class="step">
+        <i class="bullseye icon"></i>
+        <div class="content">
+            <div class="title">Encoding</div>
+            <div class="description">Encoding media file to streaming format</div>
+        </div>
+    </div>
+    <div id="step_publish" class="step">
+        <i class="unhide icon"></i>
+        <div class="content">
+            <div class="title">Publishing</div>
+            <div class="description">Publishing your file</div>
+        </div>
+    </div>
+</div>
+<div id="mediasource"></div>
+<div class="ui icon message" id="div_transition" style="display:none">
+    <i class="notched circle loading icon"></i>
+    <div class="content">
+        <div class="header">
+            Just one second
+        </div>
+        <p>We're starting to create your media file now..</p>
+    </div>
+</div>
+<div id="asset_progress_info" style="display:none">
+    <table class="ui definition table">
+
+        <tbody>
+            <tr>
+                <td>Status</td>
+                <td colspan="2" id="td_status"></td>
+            </tr>
+            <tr>
+                <td>Mesage</td>
+                <td colspan="2" id="td_message"></td>
+            </tr>
+            <tr>
+                <td>File upload</td>
+                <td id="td_uploadstart"></td>
+                <td id="td_uploadend"></td>
+            </tr>
+            <tr>
+                <td>Creating Asset</td>
+                <td id="td_creatingassetstart"></td>
+                <td id="td_creatingassetend"></td>
+            </tr>
+            <tr>
+                <td>Encoding</td>
+                <td id="td_encodingstart"></td>
+                <td id="td_encodingend"></td>
+            </tr>
+            <tr>
+                <td>Publishing</td>
+                <td id="td_publishingstart"></td>
+                <td id="td_publishingend"></td>
+            </tr>
+
+            <tr>
+                <td>HSL URL</td>
+                <td colspan="2" id="td_hsl"></td>
+            </tr>
+
+            <tr>
+                <td>Streaming URL</td>
+                <td colspan="2" id="td_straming"></td>
+            </tr>
+
+            <tr>
+                <td>Dash URL</td>
+                <td colspan="2" id="td_dash"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

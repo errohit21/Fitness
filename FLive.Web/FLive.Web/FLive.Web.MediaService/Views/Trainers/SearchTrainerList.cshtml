@@ -1,0 +1,44 @@
+﻿@model IList<FLive.Web.MediaService.Models.flive.Trainer>
+@{
+    Layout = null;
+}
+
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="TBL_EntitySearchResults" style="width: 100%; margin-top: 10px;">
+
+    @foreach (var item in Model)
+    {
+        <tr class="dataGridInnertr" onclick="TrainerManagement.LoadAddEditForm(@item.Id)">
+            <td>
+            <td class="entity-index-imagetd">
+                <img src="@item.ProfileImageUrl" class="user-image" />
+            </td>
+            <td class="entity-data-td">
+                <div class="entity-item-title">
+                    @item.Name
+                    @if (item.IsActive)
+                    {
+                        <div class="label label-success profilelistcard-status">&nbsp;</div>
+                    }
+                    else
+                    {
+                        <div class="label label-danger profilelistcard-status">&nbsp;</div>
+                    }
+
+                </div>
+                <div class="entity-item-sub"><i class="fa fa-envelope-o"></i> @item.Email <i class="fa fa-phone" style="margin-left:15px;"></i> @item.MobileNumber</div>
+                <div class="entity-item-sub">@item.Address</div>
+            </td>
+
+        </tr>
+    }
+
+
+    @if (Model.Count == 0)
+    {
+        <tr>
+            <td style="padding-left: 20px;">
+                No records found.
+            </td>
+        </tr>
+    }
+</table>

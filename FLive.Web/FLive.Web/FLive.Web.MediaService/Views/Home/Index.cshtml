@@ -1,0 +1,251 @@
+﻿@model FLive.Web.MediaService.Models.ViewModels.DashboardViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+    #map {
+        height: 645px;
+
+    }
+    .map-info {
+        position: absolute;
+        margin-left: 350px;
+        z-index: 1000;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 5px;
+        -webkit-box-shadow: 10px 10px 23px -12px rgba(0,0,0,0.75);
+        -moz-box-shadow: 10px 10px 23px -12px rgba(0,0,0,0.75);
+        box-shadow: 10px 10px 23px -12px rgba(0,0,0,0.75);
+        margin-top:20px;
+        min-width:300px;
+    }
+        .map-info h1 {
+            font-weight: bold;
+            font-size: 1.28571429em;
+            margin-top: -0.21425em;
+            line-height: 1.28571429em;
+        }
+
+        .map-info h2 {
+            font-weight: 400;
+            font-size: 13px;
+            margin-top:-5px;
+        }
+</style>
+
+
+@section Breadcrumb {
+    <li>
+        Flive Admin
+    </li>
+    <li class="active">
+        Dashboard
+    </li>
+}
+
+<div class="row main-page-row">
+
+    <div id="DIV_PageInner_OperationDetails" class="col-md-12 page-action-container mCustomScrollbar" style="margin:0px; padding:0px;">
+        <div class="row" style="padding:30px;">
+            <div class="col-sm-4" style="width:325px;">
+                <div  class="ui link cards">
+                    <div class="ui card">
+                        <div class="content">
+                            <div class="header">Member Registrations</div>
+
+                            <div class="description">
+                                <div class="ui statistics" style="    margin-top: 20px !important;width: fit-content;margin: auto;">
+                                    <div class="statistic">
+                                        <div class="value">
+                                            @Model.TrainersCount
+                                        </div>
+                                        <div class="label">
+                                            Trainers
+                                        </div>
+                                    </div>
+                                    <div class="statistic">
+                                        <div class="value">
+                                            @Model.SubscribersCount
+                                        </div>
+                                        <div class="label">
+                                            Subscribers
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="ui card">
+                        <div class="content">
+                            <div class="header">Workouts</div>
+
+                            <div class="description">
+                                <div class="ui statistics" style="    margin-top: 20px !important;width: fit-content;margin: auto;">
+                                    <div class="statistic">
+                                        <div class="value">
+                                            @Model.LiveWorkoutsCount
+                                        </div>
+                                        <div class="label">
+                                            Workouts
+                                        </div>
+                                    </div>
+                                    <div class="statistic">
+                                        <div class="value">
+                                            @Model.UpcomingLiveWorkoutsCount
+                                        </div>
+                                        <div class="label">
+                                            Upcomming
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="ui card">
+                        <div class="content" style="height:270px; ">
+                            <div class="header">Member Platforms</div>
+
+                            <div class="description" style="height:270px;">
+                                <div id="canvas-holder" style="height:270px; width:350px;    margin-left: -40px;
+    margin-top: 25px;">
+                                    <canvas id="chart-area" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col" style="padding-right:10px">
+                <div class="map-info">
+                    <h1>User Locations Heat Map</h1>
+                    <h2>
+                        <label><input type="checkbox" value="" onchange
+                                      ="UpdateMarkers()" id="show-markers" /> Show Markers</label>
+</h2>
+                </div>
+                <div id="map"></div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script>
+        var randomScalingFactor = function () {
+            return Math.round(Math.random() * 100);
+        };
+
+        var config = {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [
+                        @Html.Raw(Model.PlatformCounts.Any(a=> a.Platform == "Android") ? Model.PlatformCounts.First(a => a.Platform == "Android").Count : "0"),
+                        @Html.Raw(Model.PlatformCounts.Any(a=> a.Platform == "Apple") ? Model.PlatformCounts.First(a => a.Platform == "Apple").Count : "0"),
+                        @Html.Raw(Model.PlatformCounts.Any(a=> a.Platform == "Other") ? Model.PlatformCounts.First(a => a.Platform == "Other").Count : "0")
+                    ],
+                    backgroundColor: [
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 159, 64)'
+                    ],
+                    label: 'Dataset 1'
+                }],
+                labels: [
+                    "Android",
+                    "Apple",
+                    "Other"
+                ]
+            },
+            options: {
+                responsive: true
+            }
+        };
+
+        window.onload = function () {
+            var ctx = document.getElementById("chart-area").getContext("2d");
+            window.myPie = new Chart(ctx, config);
+        };
+
+        function UpdateMarkers() {
+            BlinkMarkers(document.getElementById('show-markers').checked);
+        }
+        
+        var map;
+        var userLocations = @Html.Raw(Model.UserLocationsJsonStr);
+        var markers = [];
+        function initMap() {
+            
+            var mapOptions = {
+                zoom: 4,
+                mapTypeControl: false,
+                center: { lat: -25.828552, lng: 134.054659 },
+                styles: [{ "featureType": "administrative", "elementType": "labels.text.fill", "stylers": [{ "color": "#6195a0" }] }, { "featureType": "administrative.province", "elementType": "geometry.stroke", "stylers": [{ "visibility": "off" }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "lightness": "0" }, { "saturation": "0" }, { "color": "#f5f5f2" }, { "gamma": "1" }] }, { "featureType": "landscape.man_made", "elementType": "all", "stylers": [{ "lightness": "-3" }, { "gamma": "1.00" }] }, { "featureType": "landscape.natural.terrain", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "poi", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "poi.park", "elementType": "geometry.fill", "stylers": [{ "color": "#bae5ce" }, { "visibility": "on" }] }, { "featureType": "road", "elementType": "all", "stylers": [{ "saturation": -100 }, { "lightness": 45 }, { "visibility": "simplified" }] }, { "featureType": "road.highway", "elementType": "all", "stylers": [{ "visibility": "simplified" }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#fac9a9" }, { "visibility": "simplified" }] }, { "featureType": "road.highway", "elementType": "labels.text", "stylers": [{ "color": "#4e4e4e" }] }, { "featureType": "road.arterial", "elementType": "labels.text.fill", "stylers": [{ "color": "#787878" }] }, { "featureType": "road.arterial", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "all", "stylers": [{ "visibility": "simplified" }] }, { "featureType": "transit.station.airport", "elementType": "labels.icon", "stylers": [{ "hue": "#0a00ff" }, { "saturation": "-77" }, { "gamma": "0.57" }, { "lightness": "0" }] }, { "featureType": "transit.station.rail", "elementType": "labels.text.fill", "stylers": [{ "color": "#43321e" }] }, { "featureType": "transit.station.rail", "elementType": "labels.icon", "stylers": [{ "hue": "#ff6c00" }, { "lightness": "4" }, { "gamma": "0.75" }, { "saturation": "-68" }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "color": "#eaf6f8" }, { "visibility": "on" }] }, { "featureType": "water", "elementType": "geometry.fill", "stylers": [{ "color": "#c7eced" }] }, { "featureType": "water", "elementType": "labels.text.fill", "stylers": [{ "lightness": "-49" }, { "saturation": "-53" }, { "gamma": "0.79" }] }]
+            };
+
+            map = new google.maps.Map(document.getElementById("map"), mapOptions);
+            var heatmapData = [];
+
+            for (var i = 0; i < userLocations.length; i++) {
+                var coords = userLocations[i];
+                var latLng = new google.maps.LatLng(coords.Lat, coords.Lng);
+                var marker = new google.maps.Marker({
+                    position: latLng,
+                    map: map
+                });
+
+                markers.push(marker);
+                heatmapData.push(latLng);
+            }
+
+            BlinkMarkers(false);
+            
+            var heatmap = new google.maps.visualization.HeatmapLayer({
+                data: heatmapData,
+                dissipating: false,
+                map: map
+            });
+        }
+
+        function BlinkMarkers(stat) {
+            console.log(stat);
+            for (var i = 0; i < markers.length; i++) {
+                var marker = markers[i];
+                if (stat)
+                {
+                    marker.setMap(map);
+                }
+                else
+                {
+                    marker.setMap(null);
+                }
+            }
+        }
+
+        function eqfeed_callback(results) {
+            var heatmapData = [];
+            for (var i = 0; i < results.features.length; i++) {
+                var coords = results.features[i].geometry.coordinates;
+                var latLng = new google.maps.LatLng(coords[1], coords[0]);
+                heatmapData.push(latLng);
+            }
+            var heatmap = new google.maps.visualization.HeatmapLayer({
+                data: heatmapData,
+                dissipating: false,
+                map: map
+            });
+        }
+
+</script>
+
+}

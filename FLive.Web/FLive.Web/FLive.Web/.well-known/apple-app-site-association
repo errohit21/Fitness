@@ -1,0 +1,11 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "9C9LQ65Z8T.au.com.flive",
+                "paths": [ "/workout/*"]
+            }
+        ]
+    }
+}

@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Microsoft.WindowsAzure.MediaServices.Client.IJob>
+@{
+    ViewBag.Title = "Jobs";
+    int row = 0;
+}
+@section head
+{
+    
+}
+@section featured {
+
+    <h1 class="ui header">@ViewBag.Title</h1>
+    <div class="ui divider"></div>
+}
+
+
+<table class="ui compact celled table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>StartTime</th>
+            <th>EndTime</th>
+            <th>State</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var job in Model)
+        {
+            ++row;
+            var cssClass = (row % 2 == 0) ? "even" : "odd";
+            <tr class="@cssClass">
+                <td>@job.Id</td>
+                <td>@job.Name</td>
+                <td>@job.StartTime</td>
+                <td>@job.EndTime</td>
+                <td>@job.State</td>
+                <td style="white-space: nowrap;">
+                    @Html.ActionLink("[cancel]", "CancelJob", new { jobId = @job.Id })<br />
+                    @Html.ActionLink("[~ delete ~]", "DeleteJob", new { jobId = @job.Id })
+                </td>
+            </tr>
+            <tr class="@cssClass">
+                <td valign="top"><span style="cursor:pointer" onclick="$('#tasks-@row').toggle()">Tasks (click to show/hide):</span></td>
+                <td colspan="5">
+                    <table border="0" cellpadding="2" cellspacing="1" id="tasks-@row" style="display: none;">
+                        <tr>
+                            <th>Name</th>
+                            <th>State</th>
+                            <th>Progress (%)</th>
+                            <th>Start</th>
+                            <th>End</th>
+                        </tr>
+                        @foreach (var task in job.Tasks)
+                        {
+                            <tr>
+                                <td>@task.Name</td>
+                                <td>
+                                    @task.State<br />
+                                @foreach (var error in task.ErrorDetails)
+                                {
+                                    <span>@error.Message</span><br />
+                                }
+                            </td>
+                            <td>@task.Progress</td>
+                            <td>@task.StartTime</td>
+                            <td>@task.EndTime</td>
+                        </tr>
+                        }
+                    </table>
+
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+    <tfoot class="full-width">
+        <tr>
+            <th colspan="6">
+                <div id="mediasource"></div>
+            </th>
+        </tr>
+    </tfoot>
+</table>
+
+<div id="errorMessage1"></div>

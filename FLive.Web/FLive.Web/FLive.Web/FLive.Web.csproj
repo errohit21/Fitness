@@ -1,0 +1,212 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <AssemblyName>FLive.Web</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>FLive.Web</PackageId>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <UserSecretsId>aspnet-FLive.Web-88710661-9d56-49af-8d1a-81dde279ecda</UserSecretsId>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
+    <RuntimeFrameworkVersion>1.0.4</RuntimeFrameworkVersion>
+    <EnableDefaultContentItems>false</EnableDefaultContentItems>
+    <PackageTargetFallback>$(PackageTargetFallback);dotnet5.6;portable-net45+win8</PackageTargetFallback>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp1.1\FLive.Web.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove=".vscode\**" />
+    <EmbeddedResource Remove=".vscode\**" />
+    <None Remove=".vscode\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\images\android-chrome-192x192.png" />
+    <Content Include="wwwroot\images\android-chrome-512x512.png" />
+    <Content Include="wwwroot\images\apple-touch-icon.png" />
+    <Content Include="wwwroot\images\appstore.png" />
+    <Content Include="wwwroot\images\favicon-16x16.png" />
+    <Content Include="wwwroot\images\favicon-32x32.png" />
+    <Content Include="wwwroot\images\favicon.ico" />
+    <Content Include="wwwroot\images\icon.png" />
+    <Content Include="wwwroot\images\playstore.png" />
+    <Content Include="wwwroot\lib\animate.css\animate-config.json" />
+    <Content Include="wwwroot\lib\animate.css\animate.css" />
+    <Content Include="wwwroot\lib\animate.css\animate.min.css" />
+    <Content Include="wwwroot\lib\animate.css\bower.json" />
+    <Content Include="wwwroot\lib\animate.css\gulpfile.js" />
+    <Content Include="wwwroot\lib\animate.css\LICENSE" />
+    <Content Include="wwwroot\lib\animate.css\package.json" />
+    <Content Include="wwwroot\lib\animate.css\source\attention_seekers\bounce.css" />
+    <Content Include="wwwroot\lib\animate.css\source\attention_seekers\flash.css" />
+    <Content Include="wwwroot\lib\animate.css\source\attention_seekers\headShake.css" />
+    <Content Include="wwwroot\lib\animate.css\source\attention_seekers\jello.css" />
+    <Content Include="wwwroot\lib\animate.css\source\attention_seekers\pulse.css" />
+    <Content Include="wwwroot\lib\animate.css\source\attention_seekers\rubberBand.css" />
+    <Content Include="wwwroot\lib\animate.css\source\attention_seekers\shake.css" />
+    <Content Include="wwwroot\lib\animate.css\source\attention_seekers\swing.css" />
+    <Content Include="wwwroot\lib\animate.css\source\attention_seekers\tada.css" />
+    <Content Include="wwwroot\lib\animate.css\source\attention_seekers\wobble.css" />
+    <Content Include="wwwroot\lib\animate.css\source\bouncing_entrances\bounceIn.css" />
+    <Content Include="wwwroot\lib\animate.css\source\bouncing_entrances\bounceInDown.css" />
+    <Content Include="wwwroot\lib\animate.css\source\bouncing_entrances\bounceInLeft.css" />
+    <Content Include="wwwroot\lib\animate.css\source\bouncing_entrances\bounceInRight.css" />
+    <Content Include="wwwroot\lib\animate.css\source\bouncing_entrances\bounceInUp.css" />
+    <Content Include="wwwroot\lib\animate.css\source\bouncing_exits\bounceOut.css" />
+    <Content Include="wwwroot\lib\animate.css\source\bouncing_exits\bounceOutDown.css" />
+    <Content Include="wwwroot\lib\animate.css\source\bouncing_exits\bounceOutLeft.css" />
+    <Content Include="wwwroot\lib\animate.css\source\bouncing_exits\bounceOutRight.css" />
+    <Content Include="wwwroot\lib\animate.css\source\bouncing_exits\bounceOutUp.css" />
+    <Content Include="wwwroot\lib\animate.css\source\fading_entrances\fadeIn.css" />
+    <Content Include="wwwroot\lib\animate.css\source\fading_entrances\fadeInDown.css" />
+    <Content Include="wwwroot\lib\animate.css\source\fading_entrances\fadeInDownBig.css" />
+    <Content Include="wwwroot\lib\animate.css\source\fading_entrances\fadeInLeft.css" />
+    <Content Include="wwwroot\lib\animate.css\source\fading_entrances\fadeInLeftBig.css" />
+    <Content Include="wwwroot\lib\animate.css\source\fading_entrances\fadeInRight.css" />
+    <Content Include="wwwroot\lib\animate.css\source\fading_entrances\fadeInRightBig.css" />
+    <Content Include="wwwroot\lib\animate.css\source\fading_entrances\fadeInUp.css" />
+    <Content Include="wwwroot\lib\animate.css\source\fading_entrances\fadeInUpBig.css" />
+    <Content Include="wwwroot\lib\animate.css\source\fading_exits\fadeOut.css" />
+    <Content Include="wwwroot\lib\animate.css\source\fading_exits\fadeOutDown.css" />
+    <Content Include="wwwroot\lib\animate.css\source\fading_exits\fadeOutDownBig.css" />
+    <Content Include="wwwroot\lib\animate.css\source\fading_exits\fadeOutLeft.css" />
+    <Content Include="wwwroot\lib\animate.css\source\fading_exits\fadeOutLeftBig.css" />
+    <Content Include="wwwroot\lib\animate.css\source\fading_exits\fadeOutRight.css" />
+    <Content Include="wwwroot\lib\animate.css\source\fading_exits\fadeOutRightBig.css" />
+    <Content Include="wwwroot\lib\animate.css\source\fading_exits\fadeOutUp.css" />
+    <Content Include="wwwroot\lib\animate.css\source\fading_exits\fadeOutUpBig.css" />
+    <Content Include="wwwroot\lib\animate.css\source\flippers\flip.css" />
+    <Content Include="wwwroot\lib\animate.css\source\flippers\flipInX.css" />
+    <Content Include="wwwroot\lib\animate.css\source\flippers\flipInY.css" />
+    <Content Include="wwwroot\lib\animate.css\source\flippers\flipOutX.css" />
+    <Content Include="wwwroot\lib\animate.css\source\flippers\flipOutY.css" />
+    <Content Include="wwwroot\lib\animate.css\source\lightspeed\lightSpeedIn.css" />
+    <Content Include="wwwroot\lib\animate.css\source\lightspeed\lightSpeedOut.css" />
+    <Content Include="wwwroot\lib\animate.css\source\rotating_entrances\rotateIn.css" />
+    <Content Include="wwwroot\lib\animate.css\source\rotating_entrances\rotateInDownLeft.css" />
+    <Content Include="wwwroot\lib\animate.css\source\rotating_entrances\rotateInDownRight.css" />
+    <Content Include="wwwroot\lib\animate.css\source\rotating_entrances\rotateInUpLeft.css" />
+    <Content Include="wwwroot\lib\animate.css\source\rotating_entrances\rotateInUpRight.css" />
+    <Content Include="wwwroot\lib\animate.css\source\rotating_exits\rotateOut.css" />
+    <Content Include="wwwroot\lib\animate.css\source\rotating_exits\rotateOutDownLeft.css" />
+    <Content Include="wwwroot\lib\animate.css\source\rotating_exits\rotateOutDownRight.css" />
+    <Content Include="wwwroot\lib\animate.css\source\rotating_exits\rotateOutUpLeft.css" />
+    <Content Include="wwwroot\lib\animate.css\source\rotating_exits\rotateOutUpRight.css" />
+    <Content Include="wwwroot\lib\animate.css\source\sliding_entrances\slideInDown.css" />
+    <Content Include="wwwroot\lib\animate.css\source\sliding_entrances\slideInLeft.css" />
+    <Content Include="wwwroot\lib\animate.css\source\sliding_entrances\slideInRight.css" />
+    <Content Include="wwwroot\lib\animate.css\source\sliding_entrances\slideInUp.css" />
+    <Content Include="wwwroot\lib\animate.css\source\sliding_exits\slideOutDown.css" />
+    <Content Include="wwwroot\lib\animate.css\source\sliding_exits\slideOutLeft.css" />
+    <Content Include="wwwroot\lib\animate.css\source\sliding_exits\slideOutRight.css" />
+    <Content Include="wwwroot\lib\animate.css\source\sliding_exits\slideOutUp.css" />
+    <Content Include="wwwroot\lib\animate.css\source\specials\hinge.css" />
+    <Content Include="wwwroot\lib\animate.css\source\specials\rollIn.css" />
+    <Content Include="wwwroot\lib\animate.css\source\specials\rollOut.css" />
+    <Content Include="wwwroot\lib\animate.css\source\zooming_entrances\zoomIn.css" />
+    <Content Include="wwwroot\lib\animate.css\source\zooming_entrances\zoomInDown.css" />
+    <Content Include="wwwroot\lib\animate.css\source\zooming_entrances\zoomInLeft.css" />
+    <Content Include="wwwroot\lib\animate.css\source\zooming_entrances\zoomInRight.css" />
+    <Content Include="wwwroot\lib\animate.css\source\zooming_entrances\zoomInUp.css" />
+    <Content Include="wwwroot\lib\animate.css\source\zooming_exits\zoomOut.css" />
+    <Content Include="wwwroot\lib\animate.css\source\zooming_exits\zoomOutDown.css" />
+    <Content Include="wwwroot\lib\animate.css\source\zooming_exits\zoomOutLeft.css" />
+    <Content Include="wwwroot\lib\animate.css\source\zooming_exits\zoomOutRight.css" />
+    <Content Include="wwwroot\lib\animate.css\source\zooming_exits\zoomOutUp.css" />
+    <Content Include="wwwroot\lib\animate.css\source\_base.css" />
+    <Content Include="wwwroot\lib\ionic\css\ionic.css" />
+    <Content Include="wwwroot\lib\ionic\css\ionic.min.css" />
+    <Content Include="wwwroot\lib\ionic\fonts\ionicons.eot" />
+    <Content Include="wwwroot\lib\ionic\fonts\ionicons.svg" />
+    <Content Include="wwwroot\lib\ionic\fonts\ionicons.ttf" />
+    <Content Include="wwwroot\lib\ionic\fonts\ionicons.woff" />
+    <Content Include="wwwroot\lib\ionic\version.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="xunit.runner.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wwwroot\**\*;**\*.cshtml;appsettings.json;project.json;web.config">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    
+    <PackageReference Include="Gray.Microsoft.AspNetCore.SignalR.Server" Version="0.2.0-alpha1" />
+    
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.1.0-preview4-final" />
+    
+    <PackageReference Include="Sendgrid" Version="9.4.1" />
+    
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="1.0.0" />
+    
+    <PackageReference Include="Twilio.NetCore" Version="1.0.0" />
+    
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0-beta5-build1225" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Routing" Version="1.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.1">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="1.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.0.0">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.3" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="1.0.2" />
+    <PackageReference Include="xunit" Version="2.2.0-beta5-build3474" />
+    <PackageReference Include="WindowsAzure.Storage" Version="7.2.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Azure.Management.NotificationHubs" Version="2.1.0-preview" />
+    <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="1.1.1" />
+    <PackageReference Include="NodaTime" Version="2.0.0-alpha20160707" />
+    <PackageReference Include="Microsoft.AspNetCore.WebSockets" Version="1.0.1" />
+    <PackageReference Include="Serilog" Version="2.4.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="1.4.0" />
+    <PackageReference Include="Serilog.Sinks.Seq" Version="3.2.0" />
+    <PackageReference Include="Serilog.Sinks.Slack" Version="1.2.51" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.2.301" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.0" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <None Include=".well-known\apple-app-site-association" />
+  </ItemGroup>
+
+
+</Project>

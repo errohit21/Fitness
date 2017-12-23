@@ -1,0 +1,38 @@
+@{
+    Layout = "_EmptyLayout";
+}
+
+<div>
+
+    <div class="bar bar-header bar-light animated fadeIn">
+        <div class="logo bg_img">
+            </img>
+            <h1 class="title">Flive</h1>
+        </div>
+
+    </div>
+    <div class="has-header animated fadeIn scroll-content ionic-scroll">
+        <div class="list card">
+            <div class="item item-avatar">
+                <img src="@ViewData["ProfileImageUrl"]">
+                <h2>@ViewData["TrainerName"]</h2>
+                <p>@ViewData["Title"]</p>
+                <p>@ViewData["WorkoutTime"]</p>
+            </div>
+            <div>
+                <a class="button button-block button-luminus" href="flive://workout/@ViewData["WorkoutId"]">Open in the App</a>
+            </div>
+            <div class="item item-image preview_img">
+                <img src="@ViewData["PreviewImageUrl"]" />
+            </div>
+            <a class="item item-image down_btn" href="#">
+                <img src="~/images/playstore.png" />
+            </a>
+            <a class="item item-image down_btn" href="#">
+                <img src="~/images/appstore.png" />
+            </a>
+        </div>
+    </div>
+
+</div>
+

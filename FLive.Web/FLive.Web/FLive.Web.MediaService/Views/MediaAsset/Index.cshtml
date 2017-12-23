@@ -1,0 +1,55 @@
+﻿@using Microsoft.WindowsAzure.MediaServices.Client
+@using FLive.Media.Common
+@model List<FLive.Web.MediaService.Models.MediaAsset>
+@{
+    ViewBag.Title = "Media Files";
+}
+@section head
+{
+}
+@section featured {
+
+    <h1 class="ui header">@ViewBag.Title</h1>
+    <div class="ui divider"></div>
+
+    <div class="ui divider hidden"></div>
+}
+@section scripts
+{
+   
+}
+
+
+<table class="ui compact celled table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Id</th>
+            <th>Status</th>
+            <th>Message</th>
+            <th>Date Started</th>
+            <th>Progress</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var mediaAsset in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink("[details]", "Details", new { assetId = @mediaAsset.Id })
+                </td>
+                <td>
+                    @mediaAsset.Id
+                </td>
+                <td>@mediaAsset.Status</td>
+                <td>@mediaAsset.Mesage</td>
+                <td>@mediaAsset.DateUploadStarted</td>
+                <td>@mediaAsset.CurrentProgress</td>
+            </tr>
+        }
+
+
+    </tbody>
+    
+</table>

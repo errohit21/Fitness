@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Functions", "Functions", "{3BD867D5-2F4B-49C5-91C2-C4213964BE2C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImageResizer-50x50", "ImageResizer-50x50", "{CF750EBF-96EC-49E4-93A8-ABD828082013}"
+	ProjectSection(SolutionItems) = preProject
+		Functions\ImageResizer-50x50\function.json = Functions\ImageResizer-50x50\function.json
+		Functions\ImageResizer-50x50\project.json = Functions\ImageResizer-50x50\project.json
+		Functions\ImageResizer-50x50\run.csx = Functions\ImageResizer-50x50\run.csx
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImageResizer-40x40", "ImageResizer-40x40", "{0084FB80-A0E0-4DEB-9AED-6C0406895209}"
+	ProjectSection(SolutionItems) = preProject
+		Functions\ImageResizer-40x40\function.json = Functions\ImageResizer-40x40\function.json
+		Functions\ImageResizer-40x40\project.json = Functions\ImageResizer-40x40\project.json
+		Functions\ImageResizer-40x40\run.csx = Functions\ImageResizer-40x40\run.csx
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FLive.Web", "FLive.Web\FLive.Web.csproj", "{D10268C1-5BB6-4839-A171-A2A8526A9A55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FLive.Infrastructure", "FLive.Infrastructure\FLive.Infrastructure.csproj", "{503582CE-7D78-48FD-99CC-2A01CA30548C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FLive.Media.Common", "FLive.Media.Common\FLive.Media.Common.csproj", "{B3E1DC23-D9D4-477C-B66D-BA9EDCC23830}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FLive.Web.MediaService", "FLive.Web.MediaService\FLive.Web.MediaService.csproj", "{4A464D0A-C6F2-458A-BCA9-5BEE095F9719}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D10268C1-5BB6-4839-A171-A2A8526A9A55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D10268C1-5BB6-4839-A171-A2A8526A9A55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D10268C1-5BB6-4839-A171-A2A8526A9A55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D10268C1-5BB6-4839-A171-A2A8526A9A55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{503582CE-7D78-48FD-99CC-2A01CA30548C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{503582CE-7D78-48FD-99CC-2A01CA30548C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{503582CE-7D78-48FD-99CC-2A01CA30548C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{503582CE-7D78-48FD-99CC-2A01CA30548C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3E1DC23-D9D4-477C-B66D-BA9EDCC23830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3E1DC23-D9D4-477C-B66D-BA9EDCC23830}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3E1DC23-D9D4-477C-B66D-BA9EDCC23830}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3E1DC23-D9D4-477C-B66D-BA9EDCC23830}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A464D0A-C6F2-458A-BCA9-5BEE095F9719}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A464D0A-C6F2-458A-BCA9-5BEE095F9719}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A464D0A-C6F2-458A-BCA9-5BEE095F9719}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A464D0A-C6F2-458A-BCA9-5BEE095F9719}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CF750EBF-96EC-49E4-93A8-ABD828082013} = {3BD867D5-2F4B-49C5-91C2-C4213964BE2C}
+		{0084FB80-A0E0-4DEB-9AED-6C0406895209} = {3BD867D5-2F4B-49C5-91C2-C4213964BE2C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4
+	EndGlobalSection
+EndGlobal

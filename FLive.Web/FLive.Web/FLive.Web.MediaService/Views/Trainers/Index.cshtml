@@ -1,0 +1,56 @@
+﻿@{ 
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section Breadcrumb {
+    <li>
+        Flive Admin
+    </li>
+    <li class="active">
+        Manage Trainers
+    </li>
+}
+
+<div class="row main-page-row">
+    <div class="col-md-4 search-container mCustomScrollbar">
+        <div class="main-search">
+            <div class="input-group margin-bottom-sm">
+                <span class="input-group-addon search-box-wrap"><i class="fa fa-search fa-fw"></i></span>
+                <input type="text" id="TextBox_Main_SearchBox" onkeyup="TrainerManagement.FindTrainers();"
+                       placeholder="Who do you want to find ?" class="form-control main-search-box"></input>
+            </div>
+
+        </div>
+        <div class="main-search-result " id="div_searchresults">
+
+        </div>
+    </div>
+
+    <div id="DIV_PageInner_OperationDetails" class="col-md-8 page-action-container mCustomScrollbar" style="margin:0px; padding:0px;">
+        <div style="padding:30px">
+
+            <div style=" text-align: center;
+                 padding-top: 100px;">
+                <img src="~/Content/img/logo_horizontal_colord_web.png" />
+                <h2>Please select a trainer</h2>
+                <p>
+                    Please search and select the trainer to view more details.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            TrainerManagement.SearchTrainers();
+            TrainerManagement.ResetHeight();
+
+        });
+
+    </script>
+
+}

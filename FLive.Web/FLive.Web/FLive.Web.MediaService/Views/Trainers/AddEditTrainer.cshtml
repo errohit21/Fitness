@@ -1,0 +1,117 @@
+﻿@model FLive.Web.MediaService.Models.flive.Trainer
+@{
+    Layout = null;
+}
+
+<input type="hidden" id="trainer_id" value="@Model.Id" />
+<div class="row" style="margin:0px;">
+    <div class="col-lg-12" id="map" style="height:300px; margin-bottom:0px;">
+
+    </div>
+    <div class="profile-map-inner">
+        <img src="@Model.ProfileImageUrl" style="width: 115px;height: 115px;position: absolute;border-radius: 75px;margin-top: -23px; margin-left: -60px;border-width: 4px;" class="user-image" />
+        <table class="profile-card-tbl">
+            <tr>
+                <td class="entity-index-imagetd" style="padding-right:70px;"></td>
+                <td>
+                    <div style="font-size:22px; color:#524270;margin-bottom: 8px;">
+                        @Model.Name
+                    </div>
+                    <div style="font-size:13px; font-weight:100">
+                        <div><i class="fa fa-envelope-o"></i> @Model.Email <i class="fa fa-phone" style="margin-left:15px;"></i> @Model.MobileNumber</div>
+                        <div>@Model.Address</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="page-inner-formwrapper">
+    <div class="row" style="margin:0px; display:">
+        <div class="col-lg-12 page-inner-subheading">
+            <table>
+                <tr>
+                    <td style="padding-right:25px;" class="page-inner-subheading">
+                        Active Status<br />
+                        <small id="fileHelp" class="form-text text-muted">You can set the active status for the trainer</small>
+                    </td>
+                    <td style="padding-left:30px;">
+
+                        <label class="switch">
+                        @if (Model.IsActive)
+                        {
+                            <input id="Trainer_ActiveStatusChk" type="checkbox" checked onchange="TrainerManagement.UpdateActiveStatus();">
+                        }
+                        else
+                        {
+                            <input id="Trainer_ActiveStatusChk" type="checkbox" onchange="TrainerManagement.UpdateActiveStatus();">
+                        }
+
+                        <div class="slider round"></div>
+                    </label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div class="row" style="margin:0px; display:">
+        <div class="col-lg-12 page-inner-subheading">
+            Live Workouts<br />
+            <small id="fileHelp" class="form-text text-muted">List of workouts by @Model.Name</small>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ui link cards">
+
+                @foreach (var item in Model.LiveWorkouts)
+                {
+                    <div class="card">
+                        <div class="image">
+                            <img src="@item.PreviewImagelUrl">
+                        </div>
+                        <div class="content">
+                            <div class="header">@item.TrainingCategory</div>
+                            <div class="meta">
+                                <a>@item.DurationMins mins</a>
+                            </div>
+                            <div class="description">
+                                @item.Title
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <span class="right floated">
+                                @if (item.StartTime != null)
+                                {
+                                    @Html.Raw(item.StartTime.Value.ToShortDateString() + " " + Html.Raw(item.StartTime.Value.ToShortTimeString()))
+                                }
+                            </span>
+                            <span>
+                                @if (item.IsActive)
+                                {
+                                    <div style="float:unset" class="label label-success profilelistcard-status">&nbsp;</div> <span>Online</span> 
+                                }
+                                else
+                                {
+                                    <div style="float:unset" class="label label-danger profilelistcard-status">&nbsp;</div> <span>Offline</span>
+                                }
+                            </span>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.LiveWorkouts == null || Model.LiveWorkouts.Count == 0)
+                {
+                    @Html.Raw("No live workouts for " + Model.Name);
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    @*$('#Customer_OrdersLoading').html($('#DIV_InnerListContent_Loading').html());
+    CustomerManagement.LoadOrderList("@Model.Code");*@
+    TrainerManagement.DrawAddressMap(@Model.LocationLatitude,@Model.LocationLongitude);
+</script>
